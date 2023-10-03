@@ -1,0 +1,55 @@
+#include <bits/stdc++.h> 
+using namespace std;
+
+typedef long long ll;
+
+const ll N = 1e5 + 10;
+
+ll n, dem, ans;
+ll fib[N];
+
+void open_file() {
+    freopen("FIBO.INP", "r", stdin);
+    freopen("FIBO.OUT", "w", stdout);
+}
+
+bool comp(const ll a, const ll b) {
+    return a > b; 
+}
+
+int main() {
+    dem = 2; 
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    cin >> n; 
+
+    fib[0] = 0;
+    fib[1] = 1;
+
+    for (ll i = 2; i <= n; i ++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+        dem ++; 
+        if (fib[i] >= n) break; 
+    }
+    sort(fib, fib + dem, comp);
+    cout << n << " = ";
+    for (ll i = 0; i < dem; i ++) {
+        if (n == fib[i]) {
+            cout << fib[i];
+            break;
+        }
+        else {
+            ans += fib[i];
+            if (ans == n) {
+                cout << fib[i] << '\n';
+                break;
+            }
+            if (ans > n && ans != n) {
+                ans -= fib[i];
+                continue;
+            }
+            if (ans < n) cout << fib[i] << " + "; 
+        }
+    }
+}
